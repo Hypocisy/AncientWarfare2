@@ -1,5 +1,3 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 buildscript {
     repositories {
         jcenter()
@@ -38,15 +36,15 @@ repositories {
         url = "http://maven.covers1624.net"
     }
     maven {
-        name "LatvianModder Ivy"
-        url = "https://maven.latmod.com/"
+        name "Curse Maven"
+        url = "https://cursemaven.com"
     }
-    maven { 
-        url "http://dvs1.progwml6.com/files/maven" 
+    maven {
+        url "http://dvs1.progwml6.com/files/maven"
     }
 }
 
-minecraft{
+minecraft {
     version = minecraft_version + "-" + forge_version
     mappings = mcp_mappings
     runDir = "run"
@@ -58,7 +56,7 @@ minecraft{
     replace "@VERSION@", "${project.minecraft.version}-${project.major}.${project.minor}.${project.patch}." + getBuildNumber() + getStable()
     replace "0.000.000.001", "$forge_version"
 }
-version = minecraft.version + "-" + project.major +"."+ project.minor +"."+ project.patch +"."+ getBuildNumber() + getStable()
+version = minecraft.version + "-" + project.major + "." + project.minor + "." + project.patch + "." + getBuildNumber() + getStable()
 group = "shadowmage"
 archivesBaseName = "ancientwarfare"
 
@@ -67,12 +65,13 @@ targetCompatibility = 1.8
 
 dependencies {
     deobfCompile "cofh:RedstoneFlux:${rf_version}:universal"
-    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+//    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    deobfCompile "curse.maven:jei-238222:5101347"
     deobfCompile "codechicken:CodeChickenLib:${ccl_version}:deobf"
-    deobfCompile "com.feed_the_beast.mods:FTBLib:${ftblib_version}"
-    compile "curse.maven:ElectroblobsWizardry:${eb_cf_fileid}"
-    compile "curse.maven:infinitylib:${infinitylib_cf_fileid}"
-    compile "curse.maven:agricraft:${agricraft_cf_fileid}"
+    deobfCompile "curse.maven:FTBLib-237167:2832410"
+    compile "curse.maven:ElectroblobsWizardry-265642:4284076"
+    compile "curse.maven:infinitylib-251396:3317119"
+    compile "curse.maven:agricraft-225635:3317747"
 }
 
 buildConfig {
@@ -83,18 +82,18 @@ buildConfig {
     packageName = 'net.shadowmage.ancientwarfare'  // sets the package of the BuildConfig class,
     charset = 'UTF-8'            // sets charset of the generated class,
 
-    buildConfigField 'boolean', 'UNSTABLE', {isUnstable()}
+    buildConfigField 'boolean', 'UNSTABLE', { isUnstable() }
 }
 
-processResources{
+processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
+
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
@@ -152,7 +151,7 @@ publishing {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "Ancient Warfare 2"
+        property "sonar.projectName", "Ancient Warfare 3"
         property "sonar.projectKey", "ancientwarfare"
     }
 }
